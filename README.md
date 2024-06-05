@@ -1,1 +1,1 @@
-This is a project to create a calcultor for theodinproject.com
+This is a project to create a calculator for theodinproject.com
