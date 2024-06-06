@@ -1,6 +1,43 @@
-let num1 = 20;
-let operator = "*";
-let num2 = 4;
+const container = document.querySelector("container");
+const resultDisplay = document.querySelector("#result");
+let btns = document.querySelectorAll('button');
+// const btn0 = document.querySelector("#btn-0");
+// const btn1 = document.querySelector("#btn-1");
+// const btn2 = document.querySelector("#btn-2");
+// const btn3 = document.querySelector("#btn-3");
+// const btn4 = document.querySelector("#btn-4");
+// const btn5 = document.querySelector("#btn-5");
+// const btn6 = document.querySelector("#btn-6");
+// const btn7 = document.querySelector("#btn-7");
+// const btn8 = document.querySelector("#btn-8");
+// const btn9 = document.querySelector("#btn-9");
+// const btnAdd = document.querySelector("#btn-add");
+// const btnSubtract = document.querySelector("#btn-subtract");
+// const btnMultiply = document.querySelector("#btn-multiply");
+// const btnDivide = document.querySelector("#btn-divide");
+// const btnEquals = document.querySelector("#btn-equals");
+// const btnClear = document.querySelector("#btn-clear");
+let num1;
+let operator = "";
+let num2;
+let displayValue;
+
+btns.forEach(function (i) {
+    i.addEventListener('click', function() {
+
+        console.log(i.textContent);
+        // store the value of the button into the num variable
+        // find a way to store the second and third button click in new variables
+        num1 = i.textContent;
+        console.log(num1);
+        // when button is clicked, display the button's value in display and store it in new variable
+        // if variable already has value, store in next variable?
+        resultDisplay.value = i.textContent;
+        displayValue = parseInt(i.textContent);
+    });
+  });
+
+
 
 const add = function(num1, num2) {
     return num1 + num2;
