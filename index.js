@@ -21,41 +21,60 @@ let num1;
 let operator = "";
 let num2;
 let displayValue;
+const operatorValues = ["+", "-", "*", "/"];
 
-// the buttons need to be differentiated between numbers, operators, and = or Clear
-
-// sotre first num variable when operator is clicked.add
-// After: when new num is clicked store in second variable with equals button=
-
-
-
-btns.forEach(function (i) {
-    i.addEventListener('click', function() {
+btns.forEach(function (button) {
+    button.addEventListener('click', function() {
         if (resultDisplay.value === "default") {
             resultDisplay.value = "";
         };
-        console.log(i.textContent);
-        // this stores the value of the button into the num variable
+
+        // store the value of the button into the num variable
         // find a way to store the second and third button click in new variables
-        num1 = i.textContent;
-        console.log(num1);
-        // when button is clicked, display the button's value in display and store it in new variable
-        // if variable already has value, store in next variable? doesnt work with non-single digit values
-        // so instead, if operator variable already has a value, store in new variable
-        
-
       
-        updateDisplay(i.textContent)
+        // when button is clicked, display the button's value in display and store it in new variable
+        // if variable already has value, store in next variable?
+        updateDisplay(button.textContent);
     });
-  });
+});
 
-let updateDisplay = function(i) {
 
-    console.log(i);
-    resultDisplay.value += i; // need to concat the buttons pressed
-    displayValue = parseInt(i);
-    return i;
+let updateDisplay = function(buttonValue) {
+    console.log(buttonValue);
+  
+    
+    if (operatorValues.includes(buttonValue)) {
+        console.log("includes works");
+        num1 = displayValue;
+        console.log("operator pressed");
+        console.log(resultDisplay.value); // if resultDisplay.value includes same operator, then run appropriate math function,
+                                          // passing same variable twice.
+       
+        if (resultDisplay.value.includes(buttonValue)) {
+            console.log("same operator twice");
+        };
+        
+    };
+
+    // if(buttonValue === "+" || buttonValue === "-" || buttonValue === "*" || buttonValue === "/") {
+        
+    // };   // old
+
+
+    resultDisplay.value += buttonValue; // need to concat the buttons pressed
+    displayValue = parseInt(resultDisplay.value);
+    console.log(displayValue);
+    return buttonValue;
 }; //to run the resultDisplay.value and displayValue methods in if possible
+
+
+
+
+// -----------------------------------------------
+
+
+
+
 
 const add = function(num1, num2) {
     return num1 + num2;
