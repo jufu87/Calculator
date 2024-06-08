@@ -11,6 +11,8 @@ let displayValue1 = "default";
 let displayValue2 = "";
 let tempDisplayValue = "";
 let calculationResult = 0;
+calculationResult
+
 
 resultDisplay.setAttribute("value", displayValue1 + operator + displayValue2);
 const operatorValues = ["+", "-", "*", "/"];
@@ -70,7 +72,7 @@ btns.forEach(function (button) {
 let operatorFunction = function (lastButtonPressed) {
 
     console.log(`operator pressed: ${lastButtonPressed}`);
-
+    
 
     if (operatorValues.includes(operator)) {
         if (operator === lastButtonPressed) {
@@ -130,22 +132,29 @@ let updateDisplay2 = function (lastButtonPressed) {
 
 const add = function (n1, n2) {
     console.log(n1 + n2);
-    calculationResult = n1 + n2;
+    calculationResult = (n1 + n2).toPrecision(3);
+    calculationResult = Number(calculationResult);
 };
 
 const subtract = function (n1, n2) {
     console.log(n1 - n2);
-    calculationResult = n1 - n2;
+    calculationResult = (n1 - n2).toPrecision(3);
+    calculationResult = Number(calculationResult);
 };
 
 const multiply = function (n1, n2) {
     console.log(n1 * n2);
-    calculationResult = n1 * n2;
+    calculationResult = (n1 * n2).toPrecision(3);
+    calculationResult = Number(calculationResult);
 }
 
 const divide = function (n1, n2) {
+
+    
     console.log(n1 / n2);
-    calculationResult = n1 / n2;
+    calculationResult = (n1 / n2).toPrecision(3);
+    calculationResult = Number(calculationResult);
+    // the 2 here could be a variable that has the length of the display (with a -2 for the integer and decimal point)
 }
 
 const operate = function (n1, n2) {
@@ -157,7 +166,14 @@ const operate = function (n1, n2) {
     } else if (operator === "*") {
         multiply(n1, n2);
     } else if (operator === "/") {
+        if (n1 === 0 || n2 === 0) {
+            resultDisplay.setAttribute("value", "You got a deathwish??!!");
+            semiClear();
+            return;
+        }
         divide(n1, n2);
+    } else if (operator === "") {
+        return;
     };
 
    
@@ -196,3 +212,13 @@ const clear = function () {
     return;
 }
 
+const semiClear = function () {
+    num1 = 0;
+    num2 = 0;
+    operator = "";
+    displayValue1 = "";
+    displayValue2 = "";
+    tempDisplayValue = ""
+    calculationResult = 0;
+    return;
+}
