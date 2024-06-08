@@ -3,26 +3,30 @@ const resultDisplay = document.querySelector("#result");
 const equalsBtn = document.querySelector("#btn-equals")
 let btns = document.querySelectorAll('button');
 
-let num1;
+let num1 = 0;
 let operator = "";
-let num2;
+let newOperator = "";
+let num2 = 0;
 let displayValue1 = "default";
 let displayValue2 = "";
 let calculationResult = 0;
-console.log(resultDisplay);
+
 resultDisplay.setAttribute("value", displayValue1 + operator + displayValue2);
 const operatorValues = ["+", "-", "*", "/"];
 
-// any changes to displayValue or operator has no effect on the HTML input value.
-
-
-
 btns.forEach(function (button) {
     button.addEventListener('click', function () {
-        
+
         if (displayValue1 === "default") {
             displayValue1 = "";
         };
+
+        if (button.id === "btn-clear") {
+            console.log(`button clicked ${button.id}`);
+
+            clear(num1, num2);
+            return;
+        }
 
         if (button.id === "btn-equals") {
             console.log(`button clicked ${button.id}`);
@@ -34,7 +38,8 @@ btns.forEach(function (button) {
         if (operatorValues.includes(button.textContent)) {
 
             if (operator.length > 0 && displayValue2.length > 0) {
-                console.log("if this shows, call equals function");
+                console.log(`if this shows, call equals function ${button.textContent}`);
+                newOperator = button.textContent;
                 num2 = parseInt(displayValue2)
                 operate(num1, num2);
                 return;
@@ -47,7 +52,7 @@ btns.forEach(function (button) {
 
             if (operator.length > 0) {
                 console.log(`if operator has a value then don't call updateDisplay ${operator}`);
-                
+
                 updateDisplay2(button.textContent);
                 return;
             };
@@ -55,12 +60,6 @@ btns.forEach(function (button) {
             updateDisplay(button.textContent);
             return;
         }
-        // store the value of the button into the num variable
-        // find a way to store the second and third button click in new variables
-
-        // when button is clicked, display the button's value in display and store it in new variable
-        // if variable already has value, store in next variable?
-
     });
 });
 
@@ -68,8 +67,6 @@ let operatorFunction = function (lastButtonPressed) {
 
     console.log(`operator pressed: ${lastButtonPressed}`);
 
-
-    // displayValue1 = operator;
 
     if (operatorValues.includes(operator)) {
         if (operator === lastButtonPressed) {
@@ -90,7 +87,7 @@ let operatorFunction = function (lastButtonPressed) {
 
     };
 
-    num1 = parseInt(displayValue1); // could do: if num1 === undefined then store new number in num2
+    num1 = parseInt(displayValue1);
 
 
     console.log(displayValue1);
@@ -106,15 +103,8 @@ let updateDisplay = function (lastButtonPressed) {
         displayValue1 = "";
     };
 
-    // need to concat the buttons pressed
-    // console.log("last character of resultDisplay: ");
-    // console.log(displayValue1.charAt(displayValue1.length-1)); 
-
-
-    // console.log(displayValue1);
     return;
-}; //to run the displayValue1 and displayValue1 methods in if possible
-
+};
 
 let updateDisplay2 = function (lastButtonPressed) {
     displayValue2 += lastButtonPressed
@@ -126,59 +116,60 @@ let updateDisplay2 = function (lastButtonPressed) {
 
 // -----------------------------------------------
 
-
-
-const add = function(num1, num2) {
-    console.log(num1 + num2);
-    calculationResult = num1 + num2;
+const add = function (n1, n2) {
+    console.log(n1 + n2);
+    calculationResult = n1 + n2;
 };
 
-const subtract = function(num1, num2) {
-    console.log(num1 - num2);
-    calculationResult = num1 - num2;
+const subtract = function (n1, n2) {
+    console.log(n1 - n2);
+    calculationResult = n1 - n2;
 };
 
-const multiply = function(num1, num2) {
-    console.log(num1 * num2);
-    calculationResult = num1 * num2;
+const multiply = function (n1, n2) {
+    console.log(n1 * n2);
+    calculationResult = n1 * n2;
 }
 
-const divide = function(num1, num2) {
-    console.log(num1 / num2);
-    calculationResult = num1 / num2;
+const divide = function (n1, n2) {
+    console.log(n1 / n2);
+    calculationResult = n1 / n2;
 }
 
+const operate = function (n1, n2) {
 
-const operate = function(num1, num2) {
-    // console.log(num1, operator, num2);
     if (operator === "+") {
-        add(num1, num2);
+        add(n1, n2);
     } else if (operator === "-") {
-        subtract(num1, num2);
+        subtract(n1, n2);
     } else if (operator === "*") {
-        multiply(num1, num2);
-        
+        multiply(n1, n2);
+
     } else if (operator === "/") {
-        divide(num1, num2);
+        divide(n1, n2);
     };
 
-    
+
     num1 = calculationResult; // 
-    num2 = 0;
+    num2 = null;
+    operator = newOperator;
     displayValue1 = calculationResult;
     displayValue2 = "";
+
+    // resultDisplay.setAttribute("value", calculationResult);
+    resultDisplay.setAttribute("value", calculationResult + newOperator);
+    newOperator = "";
     
-    resultDisplay.setAttribute("value", calculationResult);
+
     return;
 };
 
-const clear = function() {
+const clear = function () {
     num1 = 0;
     num2 = 0;
+    operator = "";
     displayValue1 = "";
     displayValue2 = "";
     resultDisplay.setAttribute("value", "");
+    return;
 }
-
-// //divide();
-// operate(num1, operator, num2);
