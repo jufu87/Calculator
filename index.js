@@ -16,75 +16,97 @@ const operatorValues = ["+", "-", "*", "/"];
 
 
 btns.forEach(function (button) {
-    button.addEventListener('click', function() {
+    button.addEventListener('click', function () {
         if (displayValue1 === "default") {
             displayValue1 = "";
         };
-        
+
         if (operatorValues.includes(button.textContent)) {
-            
+
+            if (operator.length > 0 && displayValue2.length > 0) {
+                console.log("if this shows, call equals function");
+                return;
+            }
+
             operatorFunction(button.textContent);
             return;
+
         } else {
+
+            if (operator.length > 0) {
+                console.log(`if operator has a value then don't call updateDisplay ${operator}`);
+                updateDisplay2(button.textContent);
+                return;
+            };
+
             updateDisplay(button.textContent);
             return;
         }
         // store the value of the button into the num variable
         // find a way to store the second and third button click in new variables
-      
+
         // when button is clicked, display the button's value in display and store it in new variable
         // if variable already has value, store in next variable?
-        
+
     });
 });
 
-let operatorFunction = function(lastButtonPressed){
-    
+let operatorFunction = function (lastButtonPressed) {
+
     console.log(`operator pressed: ${lastButtonPressed}`);
-   
-    
+
+
     // displayValue1 = operator;
-    
+
     if (operatorValues.includes(operator)) {
+        if (operator === lastButtonPressed) {
+            console.log("same exact operator twice, call the equals function");
+        }
+
         operator = lastButtonPressed;
         resultDisplay.setAttribute("value", displayValue1 + operator + displayValue2);
 
         console.log("an operator was already pressed");
-        
-        let finalCharacter = displayValue1.charAt(displayValue1.length-1);
-        console.log(`final character: ${finalCharacter}`);
-        
+        console.log();
+
     } else {
         operator = lastButtonPressed;
         resultDisplay.setAttribute("value", displayValue1 + operator + displayValue2);
-        
+
     };
-    
+
     num1 = parseInt(displayValue1); // could do: if num1 === undefined then store new number in num2
-   
-  
+
+
     console.log(displayValue1);
     return;
 }
 
-let updateDisplay = function(lastButtonPressed) {
+let updateDisplay = function (lastButtonPressed) {
     displayValue1 += lastButtonPressed;
     console.log(`LastButtonPressed: ${lastButtonPressed}`);
     resultDisplay.setAttribute("value", displayValue1 + operator + displayValue2);
-    
+
     if (displayValue1 === "default") {
         displayValue1 = "";
     };
-  
-      // need to concat the buttons pressed
+
+    // need to concat the buttons pressed
     // console.log("last character of resultDisplay: ");
     // console.log(displayValue1.charAt(displayValue1.length-1)); 
-    
-   
+
+
     // console.log(displayValue1);
     return;
 }; //to run the displayValue1 and displayValue1 methods in if possible
 
+
+let updateDisplay2 = function (lastButtonPressed) {
+    displayValue2 += lastButtonPressed
+    console.log(`LastButtonPressed: ${lastButtonPressed}`);
+    resultDisplay.setAttribute("value", displayValue1 + operator + displayValue2);
+    return;
+}
 
 
 // -----------------------------------------------
