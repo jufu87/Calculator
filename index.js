@@ -31,7 +31,7 @@ btns.forEach(function (button) {
             displayValue1 = "";
         };
 
-        if (button.id === "btn-period"){
+        if (button.id === "btn-period") {
             console.log(`you pressed ${button.id}`);
             console.log("includes decimal");
             periodBtn.disabled = true;
@@ -80,14 +80,14 @@ btns.forEach(function (button) {
             updateDisplay(button.textContent);
             return;
         }
-        
+
     });
 });
 
 let operatorFunction = function (lastButtonPressed) {
-
+    periodBtn.disabled = false;
     console.log(`operator pressed: ${lastButtonPressed}`);
-    
+
     if (operatorValues.includes(operator)) {
         if (operator === lastButtonPressed) {
             console.log("same exact operator twice in a row, call the equals function");
@@ -104,7 +104,7 @@ let operatorFunction = function (lastButtonPressed) {
         operator = lastButtonPressed;
         resultDisplay.setAttribute("value", displayValue1 + operator + displayValue2);
     };
-    
+
     num1 = parseFloat(displayValue1);
 
     console.log(displayValue1);
@@ -119,19 +119,19 @@ let updateDisplay = function (lastButtonPressed) {
         tempDisplayValue = "";
         resultDisplay.setAttribute("value", "");
     };
-        if (lastButtonPressed === "Back") { // will will need to change when I update the back button
-            return;
-        } else {
-            displayValue1 += lastButtonPressed;
-            console.log(`LastButtonPressed: ${lastButtonPressed}`);
-            resultDisplay.setAttribute("value", displayValue1 + operator + displayValue2);
+    if (lastButtonPressed === "Back") { // will will need to change when I update the back button
+        return;
+    } else {
+        displayValue1 += lastButtonPressed;
+        console.log(`LastButtonPressed: ${lastButtonPressed}`);
+        resultDisplay.setAttribute("value", displayValue1 + operator + displayValue2);
 
-            if (displayValue1 === "0") {
-                displayValue1 = "";
-            };
+        if (displayValue1 === "0") {
+            displayValue1 = "";
+        };
 
-            return;
-        }
+        return;
+    }
 };
 
 let updateDisplay2 = function (lastButtonPressed) {
@@ -169,7 +169,7 @@ const divide = function (n1, n2) {
 }
 
 const operate = function (n1, n2) {
-    
+
     if (operator === "+") {
         add(n1, n2);
     } else if (operator === "-") {
@@ -188,7 +188,7 @@ const operate = function (n1, n2) {
     };
 
     periodBtn.disabled = false;
-    
+
     num2 = null;
     operator = newOperator;
     displayValue1 = calculationResult;
@@ -196,7 +196,7 @@ const operate = function (n1, n2) {
 
     // resultDisplay.setAttribute("value", calculationResult);
     resultDisplay.setAttribute("value", calculationResult + newOperator);
-    if (operatorValues.includes(resultDisplay.value.charAt(resultDisplay.value.length-1))) { 
+    if (operatorValues.includes(resultDisplay.value.charAt(resultDisplay.value.length - 1))) {
         // if any char in operatorValues includes the final character of the display, then execute following code:
         // not very readable, may need better solution later
         console.log(`this will set num1 = calculationResult ${resultDisplay.value}`);
