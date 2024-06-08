@@ -1,5 +1,6 @@
 const container = document.querySelector("container");
 const resultDisplay = document.querySelector("#result");
+const equalsBtn = document.querySelector("#btn-equals")
 let btns = document.querySelectorAll('button');
 
 let num1;
@@ -7,6 +8,7 @@ let operator = "";
 let num2;
 let displayValue1 = "default";
 let displayValue2 = "";
+let calculationResult = 0;
 console.log(resultDisplay);
 resultDisplay.setAttribute("value", displayValue1 + operator + displayValue2);
 const operatorValues = ["+", "-", "*", "/"];
@@ -17,14 +19,24 @@ const operatorValues = ["+", "-", "*", "/"];
 
 btns.forEach(function (button) {
     button.addEventListener('click', function () {
+        
         if (displayValue1 === "default") {
             displayValue1 = "";
         };
+
+        if (button.id === "btn-equals") {
+            console.log(`button clicked ${button.id}`);
+            num2 = parseInt(displayValue2)
+            operate(num1, num2);
+            return;
+        }
 
         if (operatorValues.includes(button.textContent)) {
 
             if (operator.length > 0 && displayValue2.length > 0) {
                 console.log("if this shows, call equals function");
+                num2 = parseInt(displayValue2)
+                operate(num1, num2);
                 return;
             }
 
@@ -35,6 +47,7 @@ btns.forEach(function (button) {
 
             if (operator.length > 0) {
                 console.log(`if operator has a value then don't call updateDisplay ${operator}`);
+                
                 updateDisplay2(button.textContent);
                 return;
             };
@@ -60,7 +73,9 @@ let operatorFunction = function (lastButtonPressed) {
 
     if (operatorValues.includes(operator)) {
         if (operator === lastButtonPressed) {
-            console.log("same exact operator twice, call the equals function");
+            console.log("same exact operator twice in a row, call the equals function");
+            num2 = num1;
+            operate(num1, num2);
         }
 
         operator = lastButtonPressed;
@@ -113,37 +128,57 @@ let updateDisplay2 = function (lastButtonPressed) {
 
 
 
-// const add = function(num1, num2) {
-//     return num1 + num2;
-// };
+const add = function(num1, num2) {
+    console.log(num1 + num2);
+    calculationResult = num1 + num2;
+};
 
-// const subtract = function(num1, num2) {
-//     return num1 - num2;
-// };
+const subtract = function(num1, num2) {
+    console.log(num1 - num2);
+    calculationResult = num1 - num2;
+};
 
-// const multiply = function(num1, num2) {
-//     return num1 * num2;
-// }
+const multiply = function(num1, num2) {
+    console.log(num1 * num2);
+    calculationResult = num1 * num2;
+}
 
-// const divide = function(num1, num2) {
-//     return num1 / num2;
-// }
+const divide = function(num1, num2) {
+    console.log(num1 / num2);
+    calculationResult = num1 / num2;
+}
 
 
-// const operate = function(num1, operator, num2) {
-//     // console.log(num1, operator, num2);
-//     if (operator === "+") {
-//         console.log(add(num1, num2));
-//     } else if (operator === "-") {
-//         console.log(subtract(num1, num2));
-//     } else if (operator === "*") {
-//         console.log(multiply(num1,num2));
-//     } else if (operator === "/") {
-//         console.log(divide(num1, num2));
-//     } else {
-//         return;
-//     }
-// };
+const operate = function(num1, num2) {
+    // console.log(num1, operator, num2);
+    if (operator === "+") {
+        add(num1, num2);
+    } else if (operator === "-") {
+        subtract(num1, num2);
+    } else if (operator === "*") {
+        multiply(num1, num2);
+        
+    } else if (operator === "/") {
+        divide(num1, num2);
+    };
+
+    
+    num1 = calculationResult; // 
+    num2 = 0;
+    displayValue1 = calculationResult;
+    displayValue2 = "";
+    
+    resultDisplay.setAttribute("value", calculationResult);
+    return;
+};
+
+const clear = function() {
+    num1 = 0;
+    num2 = 0;
+    displayValue1 = "";
+    displayValue2 = "";
+    resultDisplay.setAttribute("value", "");
+}
 
 // //divide();
 // operate(num1, operator, num2);
