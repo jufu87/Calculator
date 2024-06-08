@@ -8,7 +8,7 @@ let num1 = null;
 let operator = "";
 let newOperator = "";
 let num2 = null;
-let displayValue1 = "default";
+let displayValue1 = "0";
 let displayValue2 = "";
 let tempDisplayValue = "";
 let calculationResult = null;
@@ -26,7 +26,7 @@ const periodStr = ["."];
 btns.forEach(function (button) {
     button.addEventListener('click', function () {
 
-        if (displayValue1 === "default") {
+        if (displayValue1 === "0") {
             displayValue1 = "";
         };
 
@@ -130,7 +130,7 @@ let updateDisplay = function (lastButtonPressed) {
             console.log(`LastButtonPressed: ${lastButtonPressed}`);
             resultDisplay.setAttribute("value", displayValue1 + operator + displayValue2);
 
-            if (displayValue1 === "default") {
+            if (displayValue1 === "0") {
                 displayValue1 = "";
             };
 
