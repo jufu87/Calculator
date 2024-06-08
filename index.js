@@ -11,11 +11,16 @@ let displayValue1 = "default";
 let displayValue2 = "";
 let tempDisplayValue = "";
 let calculationResult = 0;
-calculationResult
+
 
 
 resultDisplay.setAttribute("value", displayValue1 + operator + displayValue2);
 const operatorValues = ["+", "-", "*", "/"];
+
+console.log(resultDisplay.value);
+let periodBtn = document.querySelector("#btn-period")
+const periodStr = ["."];
+
 
 btns.forEach(function (button) {
     button.addEventListener('click', function () {
@@ -24,7 +29,12 @@ btns.forEach(function (button) {
             displayValue1 = "";
         };
 
-      
+        if (button.id === "btn-period"){
+            console.log(`you pressed ${button.id}`);
+            console.log("includes decimal");
+            periodBtn.disabled = true;
+            
+        }
 
         if (button.id === "btn-clear") {
             console.log(`button clicked ${button.id}`);
@@ -35,7 +45,7 @@ btns.forEach(function (button) {
 
         if (button.id === "btn-equals") {
             console.log(`button clicked ${button.id}`);
-            num2 = parseInt(displayValue2)
+            num2 = parseFloat(displayValue2)
             operate(num1, num2);
             return;
         }
@@ -45,7 +55,7 @@ btns.forEach(function (button) {
             if (operator.length > 0 && displayValue2.length > 0) {
                 console.log(`if this shows, call equals function ${button.textContent}`);
                 newOperator = button.textContent;
-                num2 = parseInt(displayValue2)
+                num2 = parseFloat(displayValue2)
                 operate(num1, num2);
                 return;
             }
@@ -93,7 +103,7 @@ let operatorFunction = function (lastButtonPressed) {
 
     };
 
-    num1 = parseInt(displayValue1);
+    num1 = parseFloat(displayValue1);
 
 
     console.log(displayValue1);
@@ -132,19 +142,19 @@ let updateDisplay2 = function (lastButtonPressed) {
 
 const add = function (n1, n2) {
     console.log(n1 + n2);
-    calculationResult = (n1 + n2).toPrecision(3);
+    calculationResult = (n1 + n2).toPrecision(6);
     calculationResult = Number(calculationResult);
 };
 
 const subtract = function (n1, n2) {
     console.log(n1 - n2);
-    calculationResult = (n1 - n2).toPrecision(3);
+    calculationResult = (n1 - n2).toPrecision(6);
     calculationResult = Number(calculationResult);
 };
 
 const multiply = function (n1, n2) {
     console.log(n1 * n2);
-    calculationResult = (n1 * n2).toPrecision(3);
+    calculationResult = (n1 * n2).toPrecision(6);
     calculationResult = Number(calculationResult);
 }
 
@@ -152,7 +162,7 @@ const divide = function (n1, n2) {
 
     
     console.log(n1 / n2);
-    calculationResult = (n1 / n2).toPrecision(3);
+    calculationResult = (n1 / n2).toPrecision(6);
     calculationResult = Number(calculationResult);
     // the 2 here could be a variable that has the length of the display (with a -2 for the integer and decimal point)
 }
@@ -222,3 +232,7 @@ const semiClear = function () {
     calculationResult = 0;
     return;
 }
+
+const backspace = function () {
+
+};
