@@ -1,6 +1,10 @@
 const container = document.querySelector("container");
 const resultDisplay = document.querySelector("#result");
 const equalsBtn = document.querySelector("#btn-equals")
+const backBtn = document.querySelector("#btn-back")
+const temp = document.querySelector("#temp")
+temp.disabled = true;
+backBtn.disabled = true;
 // const backBtn = document.querySelector("#btn-back")
 let btns = document.querySelectorAll('button');
 
@@ -13,15 +17,12 @@ let displayValue2 = "";
 let tempDisplayValue = "";
 let calculationResult = null;
 
-
-
 resultDisplay.setAttribute("value", displayValue1 + operator + displayValue2);
 const operatorValues = ["+", "-", "*", "/"];
 
 console.log(resultDisplay.value);
 let periodBtn = document.querySelector("#btn-period")
 const periodStr = ["."];
-
 
 btns.forEach(function (button) {
     button.addEventListener('click', function () {
@@ -34,12 +35,10 @@ btns.forEach(function (button) {
             console.log(`you pressed ${button.id}`);
             console.log("includes decimal");
             periodBtn.disabled = true;
-            
         }
 
         // if (button.id === "btn-back") {
         //     back();
-            
         // }
 
         if (button.id === "btn-clear") {
@@ -89,7 +88,6 @@ let operatorFunction = function (lastButtonPressed) {
 
     console.log(`operator pressed: ${lastButtonPressed}`);
     
-
     if (operatorValues.includes(operator)) {
         if (operator === lastButtonPressed) {
             console.log("same exact operator twice in a row, call the equals function");
@@ -105,11 +103,9 @@ let operatorFunction = function (lastButtonPressed) {
     } else {
         operator = lastButtonPressed;
         resultDisplay.setAttribute("value", displayValue1 + operator + displayValue2);
-
     };
     
     num1 = parseFloat(displayValue1);
-
 
     console.log(displayValue1);
     return;
@@ -123,7 +119,7 @@ let updateDisplay = function (lastButtonPressed) {
         tempDisplayValue = "";
         resultDisplay.setAttribute("value", "");
     };
-        if (lastButtonPressed === "Back") {
+        if (lastButtonPressed === "Back") { // will will need to change when I update the back button
             return;
         } else {
             displayValue1 += lastButtonPressed;
@@ -144,7 +140,6 @@ let updateDisplay2 = function (lastButtonPressed) {
     resultDisplay.setAttribute("value", displayValue1 + operator + displayValue2);
     return;
 }
-
 
 // -----------------------------------------------
 
@@ -167,16 +162,14 @@ const multiply = function (n1, n2) {
 }
 
 const divide = function (n1, n2) {
-
-    
     console.log(n1 / n2);
     calculationResult = (n1 / n2).toPrecision(6);
     calculationResult = Number(calculationResult);
-    // the 2 here could be a variable that has the length of the display (with a -2 for the integer and decimal point)
+    // the toPrecision number here could be a variable that has the length of the display.
 }
 
 const operate = function (n1, n2) {
-
+    
     if (operator === "+") {
         add(n1, n2);
     } else if (operator === "-") {
@@ -185,7 +178,7 @@ const operate = function (n1, n2) {
         multiply(n1, n2);
     } else if (operator === "/") {
         if (n1 === 0 || n2 === 0) {
-            resultDisplay.setAttribute("value", "You got a deathwish??!!");
+            resultDisplay.setAttribute("value", "NICE TRY :)");
             semiClear();
             return;
         }
@@ -194,8 +187,7 @@ const operate = function (n1, n2) {
         return;
     };
 
-   
-
+    periodBtn.disabled = false;
     
     num2 = null;
     operator = newOperator;
@@ -226,6 +218,7 @@ const clear = function () {
     displayValue2 = "";
     tempDisplayValue = ""
     calculationResult = null;
+    periodBtn.disabled = false;
     resultDisplay.setAttribute("value", "");
     return;
 }
@@ -238,6 +231,7 @@ const semiClear = function () {
     displayValue2 = "";
     tempDisplayValue = ""
     calculationResult = null;
+    periodBtn.disabled = false;
     return;
 }
 
@@ -250,17 +244,10 @@ const semiClear = function () {
 //         resultDisplay.value = resultDisplay.value.slice(0, -1);
 //         return;
 //     };
-
-    
-
 //     if (operator === "") {
 //         displayValue1 = displayValue1.slice(0, -1);
-        
 //     } else {
 //         displayValue2 = displayValue2.slice(0, -1);
 //     };
-    
 //     return;
 // };
-
-// do not call updateDisplay1 or updateDisplay2 when back button is pressed
