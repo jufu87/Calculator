@@ -1,16 +1,17 @@
 const container = document.querySelector("container");
 const resultDisplay = document.querySelector("#result");
 const equalsBtn = document.querySelector("#btn-equals")
+// const backBtn = document.querySelector("#btn-back")
 let btns = document.querySelectorAll('button');
 
-let num1 = 0;
+let num1 = null;
 let operator = "";
 let newOperator = "";
-let num2 = 0;
+let num2 = null;
 let displayValue1 = "default";
 let displayValue2 = "";
 let tempDisplayValue = "";
-let calculationResult = 0;
+let calculationResult = null;
 
 
 
@@ -35,6 +36,11 @@ btns.forEach(function (button) {
             periodBtn.disabled = true;
             
         }
+
+        // if (button.id === "btn-back") {
+        //     back();
+            
+        // }
 
         if (button.id === "btn-clear") {
             console.log(`button clicked ${button.id}`);
@@ -95,14 +101,13 @@ let operatorFunction = function (lastButtonPressed) {
         resultDisplay.setAttribute("value", displayValue1 + operator + displayValue2);
 
         console.log("an operator was already pressed");
-        console.log();
 
     } else {
         operator = lastButtonPressed;
         resultDisplay.setAttribute("value", displayValue1 + operator + displayValue2);
 
     };
-
+    
     num1 = parseFloat(displayValue1);
 
 
@@ -118,16 +123,19 @@ let updateDisplay = function (lastButtonPressed) {
         tempDisplayValue = "";
         resultDisplay.setAttribute("value", "");
     };
+        if (lastButtonPressed === "Back") {
+            return;
+        } else {
+            displayValue1 += lastButtonPressed;
+            console.log(`LastButtonPressed: ${lastButtonPressed}`);
+            resultDisplay.setAttribute("value", displayValue1 + operator + displayValue2);
 
-    displayValue1 += lastButtonPressed;
-    console.log(`LastButtonPressed: ${lastButtonPressed}`);
-    resultDisplay.setAttribute("value", displayValue1 + operator + displayValue2);
+            if (displayValue1 === "default") {
+                displayValue1 = "";
+            };
 
-    if (displayValue1 === "default") {
-        displayValue1 = "";
-    };
-
-    return;
+            return;
+        }
 };
 
 let updateDisplay2 = function (lastButtonPressed) {
@@ -211,28 +219,48 @@ const operate = function (n1, n2) {
 };
 
 const clear = function () {
-    num1 = 0;
-    num2 = 0;
+    num1 = null;
+    num2 = null;
     operator = "";
     displayValue1 = "";
     displayValue2 = "";
     tempDisplayValue = ""
-    calculationResult = 0;
+    calculationResult = null;
     resultDisplay.setAttribute("value", "");
     return;
 }
 
 const semiClear = function () {
-    num1 = 0;
-    num2 = 0;
+    num1 = null;
+    num2 = null;
     operator = "";
     displayValue1 = "";
     displayValue2 = "";
     tempDisplayValue = ""
-    calculationResult = 0;
+    calculationResult = null;
     return;
 }
 
-const backspace = function () {
+// const back = function () {
+//     if (operatorValues.includes(resultDisplay.value.charAt(resultDisplay.value.length-1))) {
+//         // if last char of resultDisplay.value includes an operator, reset operator variable and num1 variable, slice off last resulutDisplay char
+//         console.log("BACKSPACE: final char of resultDisplay.value was an operator");
+//         operator = "";
+//         num1 = null;
+//         resultDisplay.value = resultDisplay.value.slice(0, -1);
+//         return;
+//     };
 
-};
+    
+
+//     if (operator === "") {
+//         displayValue1 = displayValue1.slice(0, -1);
+        
+//     } else {
+//         displayValue2 = displayValue2.slice(0, -1);
+//     };
+    
+//     return;
+// };
+
+// do not call updateDisplay1 or updateDisplay2 when back button is pressed
