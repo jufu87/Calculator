@@ -9,6 +9,7 @@ let newOperator = "";
 let num2 = 0;
 let displayValue1 = "default";
 let displayValue2 = "";
+let tempDisplayValue = "";
 let calculationResult = 0;
 
 resultDisplay.setAttribute("value", displayValue1 + operator + displayValue2);
@@ -20,6 +21,8 @@ btns.forEach(function (button) {
         if (displayValue1 === "default") {
             displayValue1 = "";
         };
+
+      
 
         if (button.id === "btn-clear") {
             console.log(`button clicked ${button.id}`);
@@ -60,6 +63,7 @@ btns.forEach(function (button) {
             updateDisplay(button.textContent);
             return;
         }
+        
     });
 });
 
@@ -95,6 +99,14 @@ let operatorFunction = function (lastButtonPressed) {
 }
 
 let updateDisplay = function (lastButtonPressed) {
+
+    if (tempDisplayValue === "reset display") {
+        num1 = null;
+        displayValue1 = "";
+        tempDisplayValue = "";
+        resultDisplay.setAttribute("value", "");
+    };
+
     displayValue1 += lastButtonPressed;
     console.log(`LastButtonPressed: ${lastButtonPressed}`);
     resultDisplay.setAttribute("value", displayValue1 + operator + displayValue2);
@@ -144,13 +156,13 @@ const operate = function (n1, n2) {
         subtract(n1, n2);
     } else if (operator === "*") {
         multiply(n1, n2);
-
     } else if (operator === "/") {
         divide(n1, n2);
     };
 
+   
 
-    num1 = calculationResult; // 
+    
     num2 = null;
     operator = newOperator;
     displayValue1 = calculationResult;
@@ -158,9 +170,17 @@ const operate = function (n1, n2) {
 
     // resultDisplay.setAttribute("value", calculationResult);
     resultDisplay.setAttribute("value", calculationResult + newOperator);
+    if (operatorValues.includes(resultDisplay.value.charAt(resultDisplay.value.length-1))) { 
+        // if any char in operatorValues includes the final character of the display, then execute following code:
+        // not very readable, may need better solution later
+        console.log(`this will set num1 = calculationResult ${resultDisplay.value}`);
+        num1 = calculationResult;
+    } else {
+        tempDisplayValue = "reset display";
+        console.log(`this will set tempDisplayValue to "${tempDisplayValue}"`);
+        num1 = calculationResult;
+    }
     newOperator = "";
-    
-
     return;
 };
 
@@ -170,6 +190,9 @@ const clear = function () {
     operator = "";
     displayValue1 = "";
     displayValue2 = "";
+    tempDisplayValue = ""
+    calculationResult = 0;
     resultDisplay.setAttribute("value", "");
     return;
 }
+
